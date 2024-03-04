@@ -38,23 +38,20 @@ kind: Task
 metadata:
   name: nose
 spec:
-  description: This task will clean up a workspace by deleting all the files.
   workspaces:
     - name: source
-  
   params:
     - name: args
       description: Arguments to pass to nose
-      type: starting
+      type: string
       default: "-v"
-  
   steps:
     - name: nosetests
       image: python:3.9-slim
       workingDir: $(workspaces.source.path)
       script: |
-          #!/bin/bash
-          set -e
-          python -m pip install --upgrade pip wheel
-          pip install -r requirements.txt
-          nosetests $(params.args)
+        #!/bin/bash
+        set -e
+        python -m pip install --upgrade pip wheel
+        pip install -r requirements.txt
+        nosetests $(params.args)
